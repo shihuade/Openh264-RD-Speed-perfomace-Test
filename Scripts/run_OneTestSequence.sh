@@ -131,7 +131,7 @@ runMain()
 	declare -a aPerformanceSCC_BR
 	declare -a aPerformanceSVC_QP
 	declare -a aPerformanceSVC_BR
-	aOpenh264QP=(24   28  32    36 )
+	aOpenh264QP=(20  24   28  32    36  40 )
 	YUVName=`echo  ${InputYUV} | awk 'BEGIN {FS="/"}  {print $NF}'`
 	
 	TempLog="${YUVName}_${UseType}_Console.log"
