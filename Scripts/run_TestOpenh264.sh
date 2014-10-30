@@ -19,7 +19,7 @@ runOpenH264_SCC_QP()
 					-lconfig 0 layer2.cfg -utype 1 \
 					-sw   ${PicW} -sh   ${PicH}    \
 					-dw 0 ${PicW} -dh 0 ${PicH}    \
-					-frout 0  ${FPS}  -aq 0        \
+					-frout 0  ${FPS}  -aq 1        \
 					-rc -1  -lqp  0 ${LayerQP}     \
 					-bf   ${OutputFile}            \
 					-org  ${InputYUV}"
@@ -43,7 +43,7 @@ runOpenH264_SVC_QP()
 					-lconfig 0 layer2.cfg -utype 0 \
 					-sw   ${PicW} -sh   ${PicH}    \
 					-dw 0 ${PicW} -dh 0 ${PicH}    \
-					-frout 0  ${FPS}   -aq 0       \
+					-frout 0  ${FPS}   -aq 1       \
 					-rc -1  -lqp  0 ${LayerQP}     \
 					-bf   ${OutputFile}            \
 					-org  ${InputYUV}"
