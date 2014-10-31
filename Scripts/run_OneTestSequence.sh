@@ -94,10 +94,11 @@ runTestOneSequence()
 {
 	local QP=""
 	local TargetBR=""
+	local NumQP=${#aOpenh264QP[@]}
 	if [ ${UseType} = "SCC" ]
 	then
 		runSCCPerformance >>${TempLog}
-		for((i=0;i<4;i++))
+		for((i=0;i<${NumQP};i++))
 		do
 			QP=${aOpenh264QP[$i]}
 			TargetBR=`echo ${aPerformanceSCC_QP[$i]} |awk 'BEGEIN {FS=","} {print $1}'`
@@ -106,7 +107,7 @@ runTestOneSequence()
 	elif [ ${UseType} = "SVC" ]
 	then
 		runSVCPerformance >>${TempLog}
-		for((i=0;i<4;i++))
+		for((i=0;i<${NumQP};i++))
 		do
 			QP=${aOpenh264QP[$i]}
 			TargetBR=`echo ${aPerformanceSVC_QP[$i]} | awk 'BEGEIN {FS=","} {print $1}'`
