@@ -22,7 +22,7 @@ runSCCPerformance()
 	aTargetBitRate=(100 500 1000 1500)
 	
 	#QP mode
-	for((i=0;i<4;i++))
+	for((i=0;i<${NumQP};i++))
 	do
 		LogFile="openh264_${YUVName}_SCC_QP_${aOpenh264QP[$i]}.log"
 		OutputFile="openh264_${YUVName}_SCC_QP_${aOpenh264QP[$i]}.264"
@@ -34,7 +34,7 @@ runSCCPerformance()
 	done
 	
 	#RC mode
-	for((i=0;i<4;i++))
+	for((i=0;i<${NumQP};i++))
 	do
 		LogFile="openh264_${YUVName}_SCC_BR_${aTargetBitRate[$i]}.log"
 		
@@ -55,7 +55,7 @@ runSVCPerformance()
 	aTargetBitRate=(100 500 1000 1500)
 	
 	#QP mode
-	for((i=0;i<4;i++))
+	for((i=0;i<${NumQP};i++))
 	do
 		LogFile="openh264_${YUVName}_SVC_QP_${aOpenh264QP[$i]}.log"
 		OutputFile="openh264_${YUVName}_SVC_QP_${aOpenh264QP[$i]}.264"
@@ -73,7 +73,7 @@ runSVCPerformance()
 	done
 	
 	#RC mode
-	for((i=0;i<4;i++))
+	for((i=0;i<${NumQP};i++))
 	do
 		LogFile="openh264_${YUVName}_SVC_BR_${aTargetBitRate[$i]}.log"
 		OutputFile="openh264_${YUVName}_SVC_BR_${aTargetBitRate[$i]}.264"
@@ -94,7 +94,6 @@ runTestOneSequence()
 {
 	local QP=""
 	local TargetBR=""
-	local NumQP=${#aOpenh264QP[@]}
 	if [ ${UseType} = "SCC" ]
 	then
 		runSCCPerformance >>${TempLog}
@@ -133,6 +132,8 @@ runMain()
 	declare -a aPerformanceSVC_QP
 	declare -a aPerformanceSVC_BR
 	aOpenh264QP=(20  24   28  32    36  40 )
+	NumQP=${#aOpenh264QP[@]}
+	
 	YUVName=`echo  ${InputYUV} | awk 'BEGIN {FS="/"}  {print $NF}'`
 	
 	TempLog="${YUVName}_${UseType}_Console.log"
