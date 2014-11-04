@@ -39,14 +39,6 @@ runPrepareCheck()
 		${ScriptFolder}/run_SafeDelete.sh  ${TestResultFolder}
 	fi
 	
-	if [ -d ${CodecFodler} ]
-	then
-		${ScriptFolder}/run_SafeDelete.sh  ${CodecFodler}
-	fi
-	if [ -d ${SourceFolder} ]
-	then
-		${ScriptFolder}/run_SafeDelete.sh  ${SourceFolder}
-	fi	
 	
 	cd ${SequenceLocation}
 	SequenceLocation=`pwd`
@@ -57,38 +49,14 @@ runPrepareCheck()
 	echo ""
 	mkdir  ${TestDataFolder}
 	mkdir  ${TestResultFolder}
-	mkdir  ${CodecFodler}
-	mkdir  ${SourceFolder}	
 	return 0
 }
-runPrepareLatestCodec()
-{
-	./run_CheckoutCiscoOpenh264Codec.sh   ${CodecAddress} ${SourceFolder}
-	
-	if [ ! $? -eq 0 ]
-	then
-		echo ""
-		echo  -e "\033[31m  codec source checkout failed!  \033[0m"	
-		echo ""	
-		exit 1
-	fi
-	
-	./run_BuildCodec.sh  ${SourceFolder}
-	if [ ! $? -eq 0 ]
-	then
-		echo ""
-		echo  -e "\033[31m  codec build failed!  \033[0m"	
-		echo ""	
-		exit 1
-	fi
-	
-	return 0
-}
+
 runPrepareTestSpcace()
 {
 	cp ${ScriptFolder}/*   ${TestDataFolder}
 	cp ${CodecFodler}/*   ${TestDataFolder}
-    cp ${ConfigureFile_SCC}   ${TestDataFolder}
+	cp ${ConfigureFile_SCC}   ${TestDataFolder}
 	cp ${ConfigureFile_SVC}   ${TestDataFolder}
 	
 	return 0
@@ -138,14 +106,10 @@ runMain()
 	ConfigureFile_SVC=$2
 	SequenceLocation=$3
 	ScriptFolder="Scripts"
-	CodecFodler="Codec"
-	SourceFolder="Source"
 	TestDataFolder="AllTestData"
 	TestResultFolder="TestResult"
 	CurrentDir=`pwd`
-	CodecAddress="https://github.com/cisco/openh264"
 	runPrepareCheck
-	runPrepareLatestCodec
 	runPrepareTestSpcace
 	runTestAllSequences
 	
