@@ -60,6 +60,7 @@ runMain()
 {
 	CodecFodler="Codec"
 	SourceFolder="Source"
+	ScriptFolder="Scripts"
 	
 	CodecAddress="https://github.com/cisco/openh264"
 	runPrepareCheck
