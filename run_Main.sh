@@ -55,7 +55,7 @@ runPrepareCheck()
 runPrepareTestSpcace()
 {
 	cp ${ScriptFolder}/*   ${TestDataFolder}
-	cp ${CodecFodler}/*   ${TestDataFolder}
+	cp ${CodecFolder}/*   ${TestDataFolder}
 	cp ${ConfigureFile_SCC}   ${TestDataFolder}
 	cp ${ConfigureFile_SVC}   ${TestDataFolder}
 	
