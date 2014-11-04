@@ -33,17 +33,6 @@ runSCCPerformance()
 		cat ${LogFile}
 	done
 	
-	#RC mode
-	for((i=0;i<${NumQP};i++))
-	do
-		LogFile="openh264_${YUVName}_SCC_BR_${aTargetBitRate[$i]}.log"
-		
-		OutputFile="openh264_${YUVName}_SCC_BR_${aTargetBitRate[$i]}.264"
-		./run_TestOpenh264.sh  1  ${InputYUV} ${OutputFile}   ${aTargetBitRate[$i]}   ${LogFile}
-		aPerformanceSCC_BR[$i]=`./run_GetPerfInfo_openh264.sh   ${LogFile}`
-		
-		cat ${LogFile}
-	done
 	return 0	
 }
 runSVCPerformance()
@@ -72,22 +61,6 @@ runSVCPerformance()
 		echo ""
 	done
 	
-	#RC mode
-	for((i=0;i<${NumQP};i++))
-	do
-		LogFile="openh264_${YUVName}_SVC_BR_${aTargetBitRate[$i]}.log"
-		OutputFile="openh264_${YUVName}_SVC_BR_${aTargetBitRate[$i]}.264"
-		
-		./run_TestOpenh264.sh  3  ${InputYUV} ${OutputFile}   ${aTargetBitRate[$i]}   ${LogFile}>>${TempLog}
-		aPerformanceSVC_BR[$i]=`./run_GetPerfInfo_openh264.sh   ${LogFile}`
-		
-		cat ${LogFile}
-		echo ""
-		echo "RC mode: ./run_TestOpenh264.sh  1  ${InputYUV} ${OutputFile}   ${aTargetBitRate[$i]}   ${LogFile}"
-		echo "aPerformanceSVC_BR[$i] is ${aPerformanceSVC_BR[$i]}"
-		echo ""
-		
-	done
 	return 0	
 }
 runTestOneSequence()
@@ -101,7 +74,8 @@ runTestOneSequence()
 		do
 			QP=${aOpenh264QP[$i]}
 			TargetBR=`echo ${aPerformanceSCC_QP[$i]} |awk 'BEGEIN {FS=","} {print $1}'`
-			echo "${YUVName}, ,${QP},${aPerformanceSCC_QP[$i]}, ,${TargetBR},${aPerformanceSCC_BR[$i]}">>${StatisticFile}
+			#echo "${YUVName}, ,${QP},${aPerformanceSCC_QP[$i]}, ,${TargetBR},${aPerformanceSCC_BR[$i]}">>${StatisticFile}
+			echo "${YUVName}, ,${QP},${aPerformanceSCC_QP[$i]},">>${StatisticFile}
 		done		
 	elif [ ${UseType} = "SVC" ]
 	then
@@ -110,7 +84,8 @@ runTestOneSequence()
 		do
 			QP=${aOpenh264QP[$i]}
 			TargetBR=`echo ${aPerformanceSVC_QP[$i]} | awk 'BEGEIN {FS=","} {print $1}'`
-			echo "${YUVName}, ,${QP},${aPerformanceSVC_QP[$i]}, ,${TargetBR},${aPerformanceSVC_BR[$i]}">>${StatisticFile}
+			#echo "${YUVName}, ,${QP},${aPerformanceSVC_QP[$i]}, ,${TargetBR},${aPerformanceSVC_BR[$i]}">>${StatisticFile}
+			echo "${YUVName}, ,${QP},${aPerformanceSVC_QP[$i]},">>${StatisticFile}
 		done	
 	fi
 }
