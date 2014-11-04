@@ -108,6 +108,8 @@ runMain()
 	ScriptFolder="Scripts"
 	TestDataFolder="AllTestData"
 	TestResultFolder="TestResult"
+	CodecFolder="Codec"
+	
 	CurrentDir=`pwd`
 	runPrepareCheck
 	runPrepareTestSpcace
